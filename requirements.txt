@@ -8,3 +8,4 @@ matplotlib==3.3.4
 lightgbm==3.1.1
 imbalanced-learn==0.8.0
 statsmodels==0.12.2
+plotly==4.14.3
