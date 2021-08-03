@@ -42,4 +42,4 @@ def get_duration(patient):
     raw = np.array(raw).reshape(-1, df.shape[1])
     y_hat = model.predict(raw)
     y_hat = round(y_hat[0], 4)
-    return {f"predicted hospitalization duration for patient {patient} in hours": y_hat}
+    return {f"predicted duration for patient {patient} in hours": y_hat}
