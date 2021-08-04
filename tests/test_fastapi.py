@@ -46,6 +46,10 @@ def get_classification_datas():
 
     return df
 
+def get_timeserie_data():
+    pass
+
+
 def get_classification_model():
     with open("../models/model_imbalanced_classification_lgbm.pkl", "rb") as file:
         model = pickle.load(file)
@@ -59,6 +63,7 @@ def get_regression_model():
 
         return model
 
+
 api = FastAPI(title="My API")
 
 @api.get("/duration/{patient}")
@@ -69,7 +74,7 @@ def get_duration(patient):
     raw = np.array(raw).reshape(-1, df.shape[1])
     y_hat = model.predict(raw)
     y_hat = round(y_hat[0], 4)
-    return {f"predicted duration for patient {patient} in hours": y_hat}
+    return {f"score": y_hat}
 
 @api.get("/decision/{patient}")
 def get_decision(patient):
@@ -79,9 +84,4 @@ def get_decision(patient):
     raw = np.array(raw).reshape(-1, df.shape[1])
     y_hat = model.predict(raw)
     y_hat = int(y_hat[0])
-    if y_hat == 0:
-        return {f"predicted decision for patient {patient}": "admitted patient"}
-    elif y_hat == 1:
-        return {f"predicted decision for patient {patient}": "non admitted patient"}
-    else:
-        return {f"predicted decision for patient {patient}": "deceased patient"}
+    return {f"score": y_hat}
