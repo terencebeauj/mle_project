@@ -46,9 +46,6 @@ def get_classification_datas():
 
     return df
 
-def get_timeserie_data():
-    pass
-
 
 def get_classification_model():
     with open("../models/model_imbalanced_classification_lgbm.pkl", "rb") as file:
