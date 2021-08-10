@@ -1,6 +1,6 @@
 import requests
 
-api_adddress = "localhost"
+api_adddress = "172.50.0.2"
 api_port = "8000"
 patient = "0"
 
