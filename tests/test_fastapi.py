@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import pickle
 from fastapi import FastAPI
+import tensorflow
 
 def get_regression_datas():
     with open("../data/final_preprocess_df.csv") as file:
