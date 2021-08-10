@@ -4,7 +4,7 @@ import pickle
 from fastapi import FastAPI
 
 def get_regression_datas():
-    with open("../../../data/final_preprocess_df.csv") as file:
+    with open("../data/final_preprocess_df.csv") as file:
         df = pd.read_csv(file, sep=",", index_col=0, encoding="utf8")
 
     df.drop(['dateT_E', 'dateT_S', 'decision', 'date_S_MOIS', "label",
@@ -25,7 +25,7 @@ def get_regression_datas():
     return df
 
 def get_classification_datas():
-    with open("../../../data/final_preprocess_df.csv") as file:
+    with open("../data/final_preprocess_df.csv") as file:
         df = pd.read_csv(file, sep=",", index_col=0, encoding="utf8")
 
     df.drop(['dateT_E', 'dateT_S', 'delta_time', 'date_S_MOIS', "label",
@@ -48,14 +48,14 @@ def get_classification_datas():
 
 
 def get_classification_model():
-    with open("../../../models/model_imbalanced_classification_lgbm.pkl", "rb") as file:
+    with open("../models/model_imbalanced_classification_lgbm.pkl", "rb") as file:
         model = pickle.load(file)
 
     return model
 
 
 def get_regression_model():
-        with open("../../../models/model_regression_lgbm.pkl", "rb") as file:
+        with open("../models/model_regression_lgbm.pkl", "rb") as file:
             model = pickle.load(file)
 
         return model
