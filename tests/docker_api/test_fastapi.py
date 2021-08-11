@@ -4,6 +4,9 @@ import pickle
 from fastapi import FastAPI
 
 def get_regression_datas():
+    """
+    Get the dataframe and preprocess it for the regression model
+    """
     with open("../data/final_preprocess_df.csv") as file:
         df = pd.read_csv(file, sep=",", index_col=0, encoding="utf8")
 
@@ -25,6 +28,9 @@ def get_regression_datas():
     return df
 
 def get_classification_datas():
+    """
+    Get the data and preprocess it for the classification model
+    """
     with open("../data/final_preprocess_df.csv") as file:
         df = pd.read_csv(file, sep=",", index_col=0, encoding="utf8")
 
@@ -48,6 +54,9 @@ def get_classification_datas():
 
 
 def get_classification_model():
+    """
+    Get the pre-trained classification model
+    """
     with open("../models/model_imbalanced_classification_lgbm.pkl", "rb") as file:
         model = pickle.load(file)
 
@@ -55,16 +64,22 @@ def get_classification_model():
 
 
 def get_regression_model():
-        with open("../models/model_regression_lgbm.pkl", "rb") as file:
-            model = pickle.load(file)
+    """
+    Get the pre-trained regression model
+    """
+    with open("../models/model_regression_lgbm.pkl", "rb") as file:
+        model = pickle.load(file)
 
-        return model
+    return model
 
 
 api = FastAPI(title="My API")
 
 @api.get("/duration/{patient}")
 def get_duration(patient):
+    """
+    This endpoint returns the predicted time the patient will spend in the service
+    """
     df = get_regression_datas()
     model = get_regression_model()
     raw = df.iloc[int(patient)]
@@ -75,6 +90,12 @@ def get_duration(patient):
 
 @api.get("/decision/{patient}")
 def get_decision(patient):
+    """
+    This endpoint returns the predicted decision for the patient:
+    - 0 for admission
+    - 1 for non admission
+    - 2 for decease
+    """
     df = get_classification_datas()
     model = get_classification_model()
     raw = df.iloc[int(patient)]
