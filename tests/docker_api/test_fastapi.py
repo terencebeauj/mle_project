@@ -75,6 +75,13 @@ def get_regression_model():
 
 api = FastAPI(title="My API")
 
+@api.get("/")
+def get_endpoint():
+    """
+    This endpoint test if the API is working
+    """
+    return {"response": "API is working"}
+
 @api.get("/duration/{patient}")
 def get_duration(patient):
     """
