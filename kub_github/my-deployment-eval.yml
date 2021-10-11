@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-deployment
+  labels:
+    app: user-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: user-api
+  template:
+    metadata:
+      labels:
+        app: user-api
+    spec:
+      containers:
+      - name: user-api
+        image: terence971/exam_sql_k8s:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: user-secret
+              key: password
+      - name: user-db
+        image: datascientest/mysql-k8s:1.0.0
+        ports:
+        - containerPort: 3306
