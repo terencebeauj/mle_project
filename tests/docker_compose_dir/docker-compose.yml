@@ -1,0 +1,37 @@
+version: '3.3'
+services:
+ api_docker:
+  image: final_api:latest
+  container_name: fastapi_container
+  networks:
+   - project_api_network
+ duration:
+  image: final_decision_test:latest
+  depends_on:
+   - api_docker
+  container_name: duration_container
+  networks:
+   - project_api_network
+  environment:
+   LOG: 1
+   username: alice
+   password: wonderland
+  volumes:
+   - project_volume:/home/logs
+ decision:
+  image: final_duration_test:latest
+  depends_on:
+   - api_docker
+  container_name: decision_container
+  networks:
+   - project_api_network
+  environment:
+   LOG: 1
+   username: alice
+   password: wonderland
+  volumes:
+   - project_volume:/home/logs
+networks:
+  project_api_network:
+volumes:
+ project_volume:
