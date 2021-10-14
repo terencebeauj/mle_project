@@ -1,0 +1,10 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-hospital-ingress
+spec:
+  defaultBackend:
+    service:
+      name: my-hospital-service
+      port:
+        number: 8000

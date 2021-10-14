@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-hospital-api-deployment
+  labels:
+    app: my-hospital-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-hospital-api
+  template:
+    metadata:
+      labels:
+        app: my-hospital-api
+    spec:
+      containers:
+      - name: my-hospital-api
+        image: terence971/mle_api_project:latest
+        ports:
+        - containerPort: 8000
